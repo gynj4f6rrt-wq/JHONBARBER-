@@ -1,0 +1,3175 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>JOHN BARBER</title>
+
+<style>
+:root{
+  --bg:#f5f2ed;
+  --card:rgba(255,255,255,.78);
+  --brown:#5b3a29;
+  --brown2:#8b684f;
+  --gold:#b28a5a;
+  --text:#241c17;
+  --muted:#8d8178;
+  --border:rgba(80,55,40,.12);
+  --shadow:0 12px 35px rgba(70,45,30,.10);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",
+  "SF Pro Text",Arial,sans-serif;
+  background:
+    radial-gradient(circle at top left,#fff 0%,transparent 38%),
+    linear-gradient(180deg,#f8f6f2,#eee9e2);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  -webkit-appearance:none;
+}
+
+.app{
+  width:100%;
+  max-width:600px;
+  margin:auto;
+  min-height:100vh;
+  padding:18px 15px 35px;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  background:linear-gradient(145deg,#6c4833,#3f291e);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:-.5px;
+  box-shadow:0 8px 20px rgba(70,40,25,.22);
+}
+
+.brand h1{
+  margin:0;
+  font-size:18px;
+  letter-spacing:1.5px;
+}
+
+.brand span{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:2px;
+}
+
+.topActions{
+  display:flex;
+  gap:8px;
+}
+
+.iconBtn{
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.7);
+  backdrop-filter:blur(20px);
+  width:44px;
+  height:44px;
+  border-radius:15px;
+  cursor:pointer;
+  box-shadow:0 5px 18px rgba(0,0,0,.05);
+  font-size:18px;
+}
+
+.iconBtn:active{
+  transform:scale(.94);
+}
+
+/* TABS */
+
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  background:rgba(220,212,203,.55);
+  padding:4px;
+  border-radius:17px;
+  margin-bottom:15px;
+}
+
+.tab{
+  border:0;
+  background:transparent;
+  padding:11px;
+  border-radius:13px;
+  color:var(--muted);
+  font-weight:700;
+  cursor:pointer;
+}
+
+.tab.active{
+  background:white;
+  color:var(--brown);
+  box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+/* CARD */
+
+.card{
+  background:var(--card);
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+  border:1px solid rgba(255,255,255,.85);
+  box-shadow:var(--shadow);
+  border-radius:25px;
+}
+
+/* CALENDAR */
+
+.calendarCard{
+  padding:17px;
+}
+
+.monthHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:16px;
+}
+
+.monthTitle{
+  text-align:center;
+  font-weight:800;
+  font-size:18px;
+  text-transform:capitalize;
+}
+
+.monthBtn{
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:13px;
+  background:#eee9e3;
+  color:var(--brown);
+  cursor:pointer;
+  font-size:19px;
+}
+
+.monthBtn:active{
+  transform:scale(.92);
+}
+
+.weekdays{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:4px;
+  margin-bottom:7px;
+}
+
+.weekday{
+  text-align:center;
+  font-size:10px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:5px;
+}
+
+.day{
+  min-height:54px;
+  border:0;
+  background:transparent;
+  border-radius:15px;
+  cursor:pointer;
+  position:relative;
+  color:var(--text);
+  font-weight:700;
+}
+
+.day:hover{
+  background:#eee9e3;
+}
+
+.day.other{
+  color:#c9c1ba;
+}
+
+.day.today{
+  color:var(--brown);
+}
+
+.day.selected{
+  background:linear-gradient(145deg,#67442f,#422a1f);
+  color:white;
+  box-shadow:0 8px 18px rgba(70,40,25,.23);
+}
+
+.day .number{
+  font-size:14px;
+}
+
+.day .count{
+  position:absolute;
+  bottom:5px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:8px;
+  background:var(--gold);
+  color:white;
+  min-width:15px;
+  height:15px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* SELECTED DATE */
+
+.selectedDate{
+  margin:15px 0 10px;
+  font-weight:800;
+  font-size:15px;
+}
+
+/* STATS */
+
+.statsTitle{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+  margin:14px 2px 8px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+
+.statsGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:10px;
+}
+
+.statBox{
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:19px;
+  padding:14px;
+  box-shadow:0 7px 22px rgba(70,45,30,.07);
+}
+
+.statBox.month{
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.9),
+    rgba(240,232,224,.9)
+  );
+}
+
+.statIcon{
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.statLabel{
+  font-size:10px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.statValue{
+  margin-top:4px;
+  color:var(--brown);
+  font-size:21px;
+  font-weight:900;
+}
+
+.statSub{
+  margin-top:2px;
+  font-size:9px;
+  color:var(--muted);
+}
+
+/* HOURS */
+
+.hours{
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.hour{
+  min-height:74px;
+  border-radius:19px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.68);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:9px;
+}
+
+.hourTime{
+  width:52px;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.hour.free{
+  cursor:pointer;
+}
+
+.hour.free:hover{
+  background:white;
+}
+
+.freeText{
+  color:#aaa099;
+  font-size:12px;
+}
+
+.appointment{
+  flex:1;
+  border-radius:14px;
+  padding:10px 11px;
+  color:white;
+  position:relative;
+  overflow:hidden;
+}
+
+.appointmentName{
+  font-size:14px;
+  font-weight:800;
+}
+
+.appointmentPhone{
+  font-size:11px;
+  opacity:.85;
+  margin-top:2px;
+}
+
+.appointmentActions{
+  display:flex;
+  gap:6px;
+  margin-top:8px;
+}
+
+.smallBtn{
+  border:0;
+  border-radius:9px;
+  padding:6px 9px;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.callBtn{
+  background:white;
+  color:#315d3b;
+}
+
+.editBtn{
+  background:rgba(255,255,255,.25);
+  color:white;
+}
+
+.deleteBtn{
+  background:rgba(0,0,0,.18);
+  color:white;
+}
+
+/* CASH */
+
+.cash{
+  display:none;
+}
+
+.cash.show{
+  display:block;
+}
+
+.cashHeader{
+  margin-bottom:15px;
+}
+
+.cashHeader h2{
+  margin:0;
+  font-size:25px;
+}
+
+.cashHeader p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.cashMain{
+  background:linear-gradient(145deg,#62412e,#3c281e);
+  color:white;
+  border-radius:27px;
+  padding:23px;
+  box-shadow:0 15px 35px rgba(60,35,20,.23);
+  margin-bottom:13px;
+}
+
+.cashLabel{
+  opacity:.72;
+  font-size:12px;
+}
+
+.cashAmount{
+  font-size:38px;
+  font-weight:900;
+  margin-top:7px;
+  letter-spacing:-1px;
+}
+
+.cashGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-bottom:13px;
+}
+
+.cashBox{
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(20px);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+.cashBox .label{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:700;
+}
+
+.cashBox .value{
+  color:var(--brown);
+  font-size:22px;
+  font-weight:900;
+  margin-top:5px;
+}
+
+.cashList{
+  padding:17px;
+}
+
+.cashList h3{
+  margin:0 0 13px;
+  font-size:16px;
+}
+
+.cashItem{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.cashItem:last-child{
+  border-bottom:0;
+}
+
+.cashItemName{
+  font-weight:800;
+  font-size:13px;
+}
+
+.cashItemTime{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.cashItemPrice{
+  font-weight:900;
+  color:var(--brown);
+}
+
+/* SETTINGS */
+
+.settings{
+  display:none;
+}
+
+.settings.show{
+  display:block;
+}
+
+.settingsHeader{
+  margin-bottom:15px;
+}
+
+.settingsHeader h2{
+  margin:0;
+  font-size:25px;
+}
+
+.settingsHeader p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.settingsCard{
+  padding:18px;
+  margin-bottom:13px;
+}
+
+.settingsCard h3{
+  margin:0 0 5px;
+  font-size:17px;
+}
+
+.settingsCard p{
+  margin:0 0 15px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+.settingsButton{
+  width:100%;
+  border:0;
+  border-radius:17px;
+  padding:15px;
+  margin-top:9px;
+  font-weight:800;
+  cursor:pointer;
+  text-align:left;
+}
+
+.backupBtn{
+  background:linear-gradient(145deg,#67442f,#422a1f);
+  color:white;
+}
+
+.restoreBtn{
+  background:#ebe5df;
+  color:var(--brown);
+}
+
+.dangerBtn{
+  background:#f3dddd;
+  color:#8b2929;
+}
+
+.backupInfo{
+  margin-top:13px;
+  padding:13px;
+  border-radius:15px;
+  background:#f3eee9;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.settingsBack{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:16px;
+  background:#eae4de;
+  color:var(--brown);
+  font-weight:800;
+  cursor:pointer;
+  margin-bottom:13px;
+}
+
+/* SHEET */
+
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(25,18,14,.42);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:flex-end;
+  z-index:100;
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.sheet{
+  width:100%;
+  max-width:600px;
+  margin:auto;
+  background:#faf8f5;
+  border-radius:30px 30px 0 0;
+  padding:12px 18px 28px;
+  box-shadow:0 -20px 60px rgba(0,0,0,.18);
+  animation:slideUp .25s ease;
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+
+.handle{
+  width:40px;
+  height:5px;
+  border-radius:10px;
+  background:#d5cec7;
+  margin:0 auto 18px;
+}
+
+.sheet h2{
+  margin:0 0 5px;
+  font-size:21px;
+}
+
+.sheetInfo{
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:18px;
+}
+
+.input{
+  width:100%;
+  border:1px solid var(--border);
+  background:white;
+  border-radius:16px;
+  padding:14px;
+  outline:none;
+  margin-bottom:10px;
+  color:var(--text);
+}
+
+.input:focus{
+  border-color:var(--gold);
+}
+
+.colors{
+  display:flex;
+  gap:9px;
+  margin:7px 0 17px;
+}
+
+.color{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  border:3px solid transparent;
+  cursor:pointer;
+}
+
+.color.selected{
+  border-color:white;
+  box-shadow:0 0 0 2px var(--brown);
+}
+
+.sheetButtons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.mainBtn{
+  border:0;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(145deg,#67442f,#422a1f);
+  color:white;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.cancelBtn{
+  border:0;
+  padding:14px;
+  border-radius:16px;
+  background:#eae4de;
+  color:var(--brown);
+  font-weight:800;
+  cursor:pointer;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:28px 10px;
+  font-size:13px;
+}
+
+@media(max-width:390px){
+
+  .day{
+    min-height:49px;
+  }
+
+  .hour{
+    min-height:70px;
+  }
+
+  .hourTime{
+    width:45px;
+  }
+
+  .statValue{
+    font-size:19px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+  <div class="brand">
+
+    <div class="logo">JB</div>
+
+    <div>
+      <h1>JOHN BARBER</h1>
+      <span>APPOINTMENTS</span>
+    </div>
+
+  </div>
+
+  <div class="topActions">
+
+    <button
+      class="iconBtn"
+      onclick="goToday()"
+      title="Σήμερα">
+
+      ⌂
+
+    </button>
+
+    <button
+      class="iconBtn"
+      onclick="showSettings()"
+      title="Ρυθμίσεις">
+
+      ⚙️
+
+    </button>
+
+  </div>
+
+</header>
+
+
+<div class="tabs">
+
+  <button
+    id="calendarTab"
+    class="tab active"
+    onclick="showCalendar()">
+
+    📅 Ραντεβού
+
+  </button>
+
+  <button
+    id="cashTab"
+    class="tab"
+    onclick="showCash()">
+
+    💰 Ταμείο
+
+  </button>
+
+</div>
+
+
+<!-- CALENDAR -->
+
+<main id="calendarView">
+
+<section class="calendarCard card">
+
+  <div class="monthHeader">
+
+    <button
+      class="monthBtn"
+      onclick="changeMonth(-1)">
+
+      ‹
+
+    </button>
+
+    <div
+      id="monthTitle"
+      class="monthTitle">
+    </div>
+
+    <button
+      class="monthBtn"
+      onclick="changeMonth(1)">
+
+      ›
+
+    </button>
+
+  </div>
+
+
+  <div class="weekdays">
+
+    <div class="weekday">ΔΕ</div>
+    <div class="weekday">ΤΡ</div>
+    <div class="weekday">ΤΕ</div>
+    <div class="weekday">ΠΕ</div>
+    <div class="weekday">ΠΑ</div>
+    <div class="weekday">ΣΑ</div>
+    <div class="weekday">ΚΥ</div>
+
+  </div>
+
+
+  <div
+    id="days"
+    class="days">
+  </div>
+
+</section>
+
+
+<div
+  id="selectedDate"
+  class="selectedDate">
+</div>
+
+
+<div class="statsTitle">
+  📅 Ημέρα
+</div>
+
+
+<div class="statsGrid">
+
+  <div class="statBox">
+
+    <div class="statIcon">
+      💰
+    </div>
+
+    <div class="statLabel">
+      ΕΣΟΔΑ ΗΜΕΡΑΣ
+    </div>
+
+    <div
+      id="selectedDayRevenue"
+      class="statValue">
+
+      €0,00
+
+    </div>
+
+    <div class="statSub">
+      Μόνο η επιλεγμένη ημέρα
+    </div>
+
+  </div>
+
+
+  <div class="statBox">
+
+    <div class="statIcon">
+      📅
+    </div>
+
+    <div class="statLabel">
+      ΡΑΝΤΕΒΟΥ ΗΜΕΡΑΣ
+    </div>
+
+    <div
+      id="selectedDayCount"
+      class="statValue">
+
+      0
+
+    </div>
+
+    <div class="statSub">
+      Μόνο η επιλεγμένη ημέρα
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="statsTitle">
+  📊 Μήνας
+</div>
+
+
+<div class="statsGrid">
+
+  <div class="statBox month">
+
+    <div class="statIcon">
+      💰
+    </div>
+
+    <div class="statLabel">
+      ΕΣΟΔΑ ΜΗΝΑ
+    </div>
+
+    <div
+      id="selectedMonthRevenue"
+      class="statValue">
+
+      €0,00
+
+    </div>
+
+    <div
+      id="selectedMonthName"
+      class="statSub">
+
+      Τρέχων μήνας
+
+    </div>
+
+  </div>
+
+
+  <div class="statBox month">
+
+    <div class="statIcon">
+      📅
+    </div>
+
+    <div class="statLabel">
+      ΡΑΝΤΕΒΟΥ ΜΗΝΑ
+    </div>
+
+    <div
+      id="selectedMonthCount"
+      class="statValue">
+
+      0
+
+    </div>
+
+    <div
+      id="selectedMonthCountText"
+      class="statSub">
+
+      Σύνολο μήνα
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<section
+  id="hours"
+  class="hours">
+</section>
+
+</main>
+
+
+<!-- CASH -->
+
+<main
+  id="cashView"
+  class="cash">
+
+  <div class="cashHeader">
+
+    <h2>💰 Ταμείο</h2>
+
+    <p>
+      Η οικονομική εικόνα των ραντεβού σου.
+    </p>
+
+  </div>
+
+
+  <div class="cashMain">
+
+    <div class="cashLabel">
+      ΣΗΜΕΡΙΝΟΣ ΤΖΙΡΟΣ
+    </div>
+
+    <div
+      id="todayRevenue"
+      class="cashAmount">
+
+      €0,00
+
+    </div>
+
+  </div>
+
+
+  <div class="cashGrid">
+
+    <div class="cashBox">
+
+      <div class="label">
+        ΕΒΔΟΜΑΔΑ
+      </div>
+
+      <div
+        id="weekRevenue"
+        class="value">
+
+        €0,00
+
+      </div>
+
+    </div>
+
+
+    <div class="cashBox">
+
+      <div class="label">
+        ΜΗΝΑΣ
+      </div>
+
+      <div
+        id="monthRevenue"
+        class="value">
+
+        €0,00
+
+      </div>
+
+    </div>
+
+
+    <div class="cashBox">
+
+      <div class="label">
+        ΣΗΜΕΡΑ ΡΑΝΤΕΒΟΥ
+      </div>
+
+      <div
+        id="todayCount"
+        class="value">
+
+        0
+
+      </div>
+
+    </div>
+
+
+    <div class="cashBox">
+
+      <div class="label">
+        ΜΗΝΑΣ ΡΑΝΤΕΒΟΥ
+      </div>
+
+      <div
+        id="monthCount"
+        class="value">
+
+        0
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="cashList card">
+
+    <h3>
+      Σημερινά ραντεβού
+    </h3>
+
+    <div
+      id="cashAppointments">
+    </div>
+
+  </div>
+
+</main>
+
+
+<!-- SETTINGS -->
+
+<main
+  id="settingsView"
+  class="settings">
+
+  <button
+    class="settingsBack"
+    onclick="showCalendar()">
+
+    ← Πίσω στο ημερολόγιο
+
+  </button>
+
+
+  <div class="settingsHeader">
+
+    <h2>⚙️ Ρυθμίσεις</h2>
+
+    <p>
+      Διαχείριση και ασφάλεια των δεδομένων σου.
+    </p>
+
+  </div>
+
+
+  <div class="settingsCard card">
+
+    <h3>
+      💾 Αντίγραφο ασφαλείας
+    </h3>
+
+    <p>
+      Δημιούργησε ένα αρχείο με όλα τα ραντεβού,
+      ονόματα, τηλέφωνα, τιμές και χρώματα.
+    </p>
+
+
+    <button
+      class="settingsButton backupBtn"
+      onclick="createBackup()">
+
+      💾 Δημιουργία Backup
+
+    </button>
+
+
+    <button
+      class="settingsButton restoreBtn"
+      onclick="document.getElementById('backupFile').click()">
+
+      📥 Επαναφορά Backup
+
+    </button>
+
+
+    <input
+      id="backupFile"
+      type="file"
+      accept=".json,application/json"
+      style="display:none"
+      onchange="restoreBackup(event)">
+
+
+    <div
+      id="backupInfo"
+      class="backupInfo">
+
+      Έλεγχος δεδομένων...
+
+    </div>
+
+  </div>
+
+
+  <div class="settingsCard card">
+
+    <h3>
+      🛡️ Προσοχή
+    </h3>
+
+    <p>
+      Το Backup είναι ένα αντίγραφο των δεδομένων
+      που υπάρχουν αυτή τη στιγμή στην εφαρμογή.
+      Κράτησέ το σε ασφαλές σημείο.
+    </p>
+
+
+    <button
+      class="settingsButton dangerBtn"
+      onclick="clearAllData()">
+
+      🗑 Διαγραφή όλων των δεδομένων
+
+    </button>
+
+  </div>
+
+</main>
+
+</div>
+
+
+<!-- APPOINTMENT SHEET -->
+
+<div
+  id="overlay"
+  class="overlay">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2 id="sheetTitle">
+      Νέο ραντεβού
+    </h2>
+
+    <div
+      id="sheetInfo"
+      class="sheetInfo">
+    </div>
+
+
+    <input
+      id="nameInput"
+      class="input"
+      type="text"
+      placeholder="Όνομα πελάτη"
+      autocomplete="off">
+
+
+    <input
+      id="phoneInput"
+      class="input"
+      type="tel"
+      placeholder="Τηλέφωνο"
+      autocomplete="off">
+
+
+    <input
+      id="priceInput"
+      class="input"
+      type="number"
+      min="0"
+      step="0.50"
+      placeholder="Τιμή €">
+
+
+    <div class="colors">
+
+      <button
+        class="color selected"
+        style="background:#6b4631"
+        data-color="#6b4631">
+      </button>
+
+      <button
+        class="color"
+        style="background:#315d3b"
+        data-color="#315d3b">
+      </button>
+
+      <button
+        class="color"
+        style="background:#31547a"
+        data-color="#31547a">
+      </button>
+
+      <button
+        class="color"
+        style="background:#7a4261"
+        data-color="#7a4261">
+      </button>
+
+      <button
+        class="color"
+        style="background:#a16d28"
+        data-color="#a16d28">
+      </button>
+
+    </div>
+
+
+    <div class="sheetButtons">
+
+      <button
+        class="cancelBtn"
+        onclick="closeSheet()">
+
+        Ακύρωση
+
+      </button>
+
+      <button
+        class="mainBtn"
+        onclick="saveAppointment()">
+
+        Αποθήκευση
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const STORAGE_KEY =
+  "johnBarber_iOS18_v2";
+
+
+let appointments =
+  JSON.parse(
+    localStorage.getItem(
+      STORAGE_KEY
+    ) || "[]"
+  );
+
+
+let currentDate =
+  new Date();
+
+
+let selectedDate =
+  new Date();
+
+
+let editingId =
+  null;
+
+
+let selectedColor =
+  "#6b4631";
+
+
+const monthNames = [
+  "Ιανουάριος",
+  "Φεβρουάριος",
+  "Μάρτιος",
+  "Απρίλιος",
+  "Μάιος",
+  "Ιούνιος",
+  "Ιούλιος",
+  "Αύγουστος",
+  "Σεπτέμβριος",
+  "Οκτώβριος",
+  "Νοέμβριος",
+  "Δεκέμβριος"
+];
+
+
+const dayNames = [
+  "Κυριακή",
+  "Δευτέρα",
+  "Τρίτη",
+  "Τετάρτη",
+  "Πέμπτη",
+  "Παρασκευή",
+  "Σάββατο"
+];
+
+
+/* =========================
+   GENERAL
+========================= */
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(
+      appointments
+    )
+  );
+
+}
+
+
+function dateKey(date){
+
+  const y =
+    date.getFullYear();
+
+  const m =
+    String(
+      date.getMonth()+1
+    ).padStart(2,"0");
+
+  const d =
+    String(
+      date.getDate()
+    ).padStart(2,"0");
+
+  return `${y}-${m}-${d}`;
+
+}
+
+
+function formatMoney(value){
+
+  return new Intl.NumberFormat(
+    "el-GR",
+    {
+      style:"currency",
+      currency:"EUR"
+    }
+  ).format(
+    value || 0
+  );
+
+}
+
+
+function sameDay(a,b){
+
+  return (
+    dateKey(a) ===
+    dateKey(b)
+  );
+
+}
+
+
+function getAppointmentsForDate(date){
+
+  return appointments
+    .filter(
+      a =>
+        a.date ===
+        dateKey(date)
+    )
+    .sort(
+      (a,b) =>
+        a.time.localeCompare(
+          b.time
+        )
+    );
+
+}
+
+
+function getMonthAppointments(date){
+
+  return appointments.filter(
+    a => {
+
+      const d =
+        new Date(
+          a.date +
+          "T00:00:00"
+        );
+
+      return (
+        d.getMonth() ===
+          date.getMonth() &&
+        d.getFullYear() ===
+          date.getFullYear()
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+function updateSelectedStats(){
+
+  const dayAppointments =
+    getAppointmentsForDate(
+      selectedDate
+    );
+
+
+  const dayRevenue =
+    dayAppointments.reduce(
+      (sum,a) =>
+        sum +
+        (Number(a.price) || 0),
+      0
+    );
+
+
+  const monthAppointments =
+    getMonthAppointments(
+      selectedDate
+    );
+
+
+  const monthRevenue =
+    monthAppointments.reduce(
+      (sum,a) =>
+        sum +
+        (Number(a.price) || 0),
+      0
+    );
+
+
+  document.getElementById(
+    "selectedDayRevenue"
+  ).textContent =
+    formatMoney(
+      dayRevenue
+    );
+
+
+  document.getElementById(
+    "selectedDayCount"
+  ).textContent =
+    dayAppointments.length;
+
+
+  document.getElementById(
+    "selectedMonthRevenue"
+  ).textContent =
+    formatMoney(
+      monthRevenue
+    );
+
+
+  document.getElementById(
+    "selectedMonthCount"
+  ).textContent =
+    monthAppointments.length;
+
+
+  document.getElementById(
+    "selectedMonthName"
+  ).textContent =
+    `${monthNames[selectedDate.getMonth()]} ${selectedDate.getFullYear()}`;
+
+}
+
+
+/* =========================
+   CALENDAR
+========================= */
+
+function renderCalendar(){
+
+  const year =
+    currentDate.getFullYear();
+
+  const month =
+    currentDate.getMonth();
+
+
+  document.getElementById(
+    "monthTitle"
+  ).textContent =
+    `${monthNames[month]} ${year}`;
+
+
+  const daysEl =
+    document.getElementById(
+      "days"
+    );
+
+
+  daysEl.innerHTML = "";
+
+
+  const firstDay =
+    new Date(
+      year,
+      month,
+      1
+    ).getDay();
+
+
+  const offset =
+    firstDay === 0
+      ? 6
+      : firstDay - 1;
+
+
+  const daysInMonth =
+    new Date(
+      year,
+      month + 1,
+      0
+    ).getDate();
+
+
+  const previousDays =
+    new Date(
+      year,
+      month,
+      0
+    ).getDate();
+
+
+  for(
+    let i=0;
+    i<offset;
+    i++
+  ){
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.className =
+      "day other";
+
+
+    button.innerHTML =
+      `<span class="number">
+        ${previousDays-offset+i+1}
+      </span>`;
+
+
+    daysEl.appendChild(
+      button
+    );
+
+  }
+
+
+  for(
+    let day=1;
+    day<=daysInMonth;
+    day++
+  ){
+
+    const date =
+      new Date(
+        year,
+        month,
+        day
+      );
+
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+
+    button.className =
+      "day";
+
+
+    if(
+      sameDay(
+        date,
+        new Date()
+      )
+    ){
+
+      button.classList.add(
+        "today"
+      );
+
+    }
+
+
+    if(
+      sameDay(
+        date,
+        selectedDate
+      )
+    ){
+
+      button.classList.add(
+        "selected"
+      );
+
+    }
+
+
+    const count =
+      getAppointmentsForDate(
+        date
+      ).length;
+
+
+    button.innerHTML =
+      `<span class="number">
+        ${day}
+      </span>` +
+      (
+        count
+          ? `<span class="count">
+              ${count}
+             </span>`
+          : ""
+      );
+
+
+    button.onclick =
+      () => {
+
+        selectedDate =
+          new Date(date);
+
+        renderCalendar();
+
+        renderHours();
+
+      };
+
+
+    daysEl.appendChild(
+      button
+    );
+
+  }
+
+
+  updateSelectedStats();
+
+}
+
+
+function changeMonth(direction){
+
+  currentDate.setMonth(
+    currentDate.getMonth() +
+    direction
+  );
+
+
+  selectedDate =
+    new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+
+
+  renderCalendar();
+
+  renderHours();
+
+}
+
+
+function goToday(){
+
+  const today =
+    new Date();
+
+
+  currentDate =
+    new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      1
+    );
+
+
+  selectedDate =
+    today;
+
+
+  showCalendar();
+
+  renderCalendar();
+
+  renderHours();
+
+}
+
+
+/* =========================
+   HOURS
+========================= */
+
+function renderHours(){
+
+  const hoursEl =
+    document.getElementById(
+      "hours"
+    );
+
+
+  hoursEl.innerHTML = "";
+
+
+  document.getElementById(
+    "selectedDate"
+  ).textContent =
+    `${dayNames[selectedDate.getDay()]} ${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]}`;
+
+
+  const booked =
+    getAppointmentsForDate(
+      selectedDate
+    );
+
+
+  const start =
+    10 * 60;
+
+
+  const end =
+    20 * 60 + 30;
+
+
+  for(
+    let minutes=start;
+    minutes<=end;
+    minutes+=30
+  ){
+
+    const h =
+      Math.floor(
+        minutes / 60
+      );
+
+
+    const m =
+      minutes % 60;
+
+
+    const time =
+      `${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;
+
+
+    const appointment =
+      booked.find(
+        a =>
+          a.time === time
+      );
+
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+
+    row.className =
+      "hour";
+
+
+    const timeEl =
+      document.createElement(
+        "div"
+      );
+
+
+    timeEl.className =
+      "hourTime";
+
+
+    timeEl.textContent =
+      time;
+
+
+    row.appendChild(
+      timeEl
+    );
+
+
+    if(!appointment){
+
+      row.classList.add(
+        "free"
+      );
+
+
+      row.innerHTML +=
+        `<div class="freeText">
+          Ελεύθερο ραντεβού
+        </div>`;
+
+
+      row.onclick =
+        () =>
+          openSheet(time);
+
+
+    }else{
+
+      const box =
+        document.createElement(
+          "div"
+        );
+
+
+      box.className =
+        "appointment";
+
+
+      box.style.background =
+        appointment.color;
+
+
+      box.innerHTML = `
+
+        <div class="appointmentName">
+          ${escapeHTML(
+            appointment.name
+          )}
+        </div>
+
+        <div class="appointmentPhone">
+          ${escapeHTML(
+            appointment.phone
+          )}
+          ${
+            appointment.price
+              ? " • " +
+                formatMoney(
+                  appointment.price
+                )
+              : ""
+          }
+        </div>
+
+        <div class="appointmentActions">
+
+          <button
+            type="button"
+            class="smallBtn callBtn"
+            onclick="
+              event.stopPropagation();
+              callCustomer(
+                '${escapeAttribute(
+                  appointment.phone
+                )}'
+              );
+            ">
+
+            📞 Κλήση
+
+          </button>
+
+
+          <button
+            type="button"
+            class="smallBtn editBtn"
+            onclick="
+              event.stopPropagation();
+              editAppointment(
+                '${appointment.id}'
+              );
+            ">
+
+            ✏️
+
+          </button>
+
+
+          <button
+            type="button"
+            class="smallBtn deleteBtn"
+            onclick="
+              event.stopPropagation();
+              deleteAppointment(
+                '${appointment.id}'
+              );
+            ">
+
+            🗑
+
+          </button>
+
+        </div>
+
+      `;
+
+
+      row.appendChild(
+        box
+      );
+
+    }
+
+
+    hoursEl.appendChild(
+      row
+    );
+
+  }
+
+
+  updateSelectedStats();
+
+}
+
+
+/* =========================
+   APPOINTMENTS
+========================= */
+
+function openSheet(
+  time,
+  appointment=null
+){
+
+  editingId =
+    appointment
+      ? appointment.id
+      : null;
+
+
+  document.getElementById(
+    "sheetTitle"
+  ).textContent =
+    appointment
+      ? "Επεξεργασία"
+      : "Νέο ραντεβού";
+
+
+  document.getElementById(
+    "sheetInfo"
+  ).textContent =
+    `${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]} • ${time}`;
+
+
+  document.getElementById(
+    "nameInput"
+  ).value =
+    appointment
+      ? appointment.name
+      : "";
+
+
+  document.getElementById(
+    "phoneInput"
+  ).value =
+    appointment
+      ? appointment.phone
+      : "";
+
+
+  document.getElementById(
+    "priceInput"
+  ).value =
+    appointment
+      ? appointment.price
+      : "";
+
+
+  selectedColor =
+    appointment
+      ? appointment.color
+      : "#6b4631";
+
+
+  document
+    .querySelectorAll(".color")
+    .forEach(c => {
+
+      c.classList.toggle(
+        "selected",
+        c.dataset.color ===
+        selectedColor
+      );
+
+    });
+
+
+  document.getElementById(
+    "overlay"
+  ).classList.add(
+    "show"
+  );
+
+
+  document.getElementById(
+    "overlay"
+  ).dataset.time =
+    time;
+
+}
+
+
+function closeSheet(){
+
+  document.getElementById(
+    "overlay"
+  ).classList.remove(
+    "show"
+  );
+
+  editingId =
+    null;
+
+}
+
+
+function saveAppointment(){
+
+  const name =
+    document.getElementById(
+      "nameInput"
+    ).value.trim();
+
+
+  const phone =
+    document.getElementById(
+      "phoneInput"
+    ).value.trim();
+
+
+  const price =
+    parseFloat(
+      document.getElementById(
+        "priceInput"
+      ).value
+    ) || 0;
+
+
+  const time =
+    document.getElementById(
+      "overlay"
+    ).dataset.time;
+
+
+  if(!name){
+
+    alert(
+      "Βάλε το όνομα του πελάτη."
+    );
+
+    return;
+
+  }
+
+
+  if(!phone){
+
+    alert(
+      "Βάλε το τηλέφωνο του πελάτη."
+    );
+
+    return;
+
+  }
+
+
+  if(editingId){
+
+    const appointment =
+      appointments.find(
+        a =>
+          a.id === editingId
+      );
+
+
+    if(appointment){
+
+      appointment.name =
+        name;
+
+      appointment.phone =
+        phone;
+
+      appointment.price =
+        price;
+
+      appointment.color =
+        selectedColor;
+
+    }
+
+
+  }else{
+
+    const already =
+      appointments.some(
+        a =>
+          a.date ===
+            dateKey(
+              selectedDate
+            ) &&
+          a.time === time
+      );
+
+
+    if(already){
+
+      alert(
+        "Η ώρα αυτή είναι ήδη κλεισμένη."
+      );
+
+      return;
+
+    }
+
+
+    appointments.push({
+
+      id:
+        Date.now().toString(),
+
+      date:
+        dateKey(
+          selectedDate
+        ),
+
+      time:
+        time,
+
+      name:
+        name,
+
+      phone:
+        phone,
+
+      price:
+        price,
+
+      color:
+        selectedColor
+
+    });
+
+  }
+
+
+  saveData();
+
+  closeSheet();
+
+  renderCalendar();
+
+  renderHours();
+
+  updateCash();
+
+  updateBackupInfo();
+
+}
+
+
+function editAppointment(id){
+
+  const appointment =
+    appointments.find(
+      a =>
+        a.id === id
+    );
+
+
+  if(!appointment)
+    return;
+
+
+  selectedDate =
+    new Date(
+      appointment.date +
+      "T00:00:00"
+    );
+
+
+  currentDate =
+    new Date(
+      selectedDate.getFullYear(),
+      selectedDate.getMonth(),
+      1
+    );
+
+
+  showCalendar();
+
+  renderCalendar();
+
+  renderHours();
+
+  openSheet(
+    appointment.time,
+    appointment
+  );
+
+}
+
+
+function deleteAppointment(id){
+
+  const appointment =
+    appointments.find(
+      a =>
+        a.id === id
+    );
+
+
+  if(!appointment)
+    return;
+
+
+  const yes =
+    confirm(
+      `Να διαγραφεί το ραντεβού του ${appointment.name};`
+    );
+
+
+  if(!yes)
+    return;
+
+
+  appointments =
+    appointments.filter(
+      a =>
+        a.id !== id
+    );
+
+
+  saveData();
+
+  renderCalendar();
+
+  renderHours();
+
+  updateCash();
+
+  updateBackupInfo();
+
+}
+
+
+function callCustomer(phone){
+
+  const cleanPhone =
+    String(phone)
+      .replace(
+        /[^\d+]/g,
+        ""
+      );
+
+
+  if(!cleanPhone){
+
+    alert(
+      "Δεν υπάρχει τηλέφωνο πελάτη."
+    );
+
+    return;
+
+  }
+
+
+  window.open(
+    "tel:" +
+    cleanPhone,
+    "_self"
+  );
+
+}
+
+
+/* =========================
+   CASH
+========================= */
+
+function startOfWeek(date){
+
+  const d =
+    new Date(date);
+
+
+  const day =
+    d.getDay();
+
+
+  const diff =
+    day === 0
+      ? -6
+      : 1-day;
+
+
+  d.setDate(
+    d.getDate() +
+    diff
+  );
+
+
+  d.setHours(
+    0,0,0,0
+  );
+
+
+  return d;
+
+}
+
+
+function updateCash(){
+
+  const today =
+    new Date();
+
+
+  const todayKey =
+    dateKey(today);
+
+
+  const weekStart =
+    startOfWeek(
+      today
+    );
+
+
+  const month =
+    today.getMonth();
+
+
+  const year =
+    today.getFullYear();
+
+
+  const todayAppointments =
+    appointments.filter(
+      a =>
+        a.date === todayKey
+    );
+
+
+  const todayRevenue =
+    todayAppointments.reduce(
+      (sum,a) =>
+        sum +
+        (Number(a.price) || 0),
+      0
+    );
+
+
+  const weekRevenue =
+    appointments.reduce(
+      (sum,a) => {
+
+        const d =
+          new Date(
+            a.date +
+            "T00:00:00"
+          );
+
+
+        if(
+          d >= weekStart &&
+          d <= today
+        ){
+
+          return (
+            sum +
+            (Number(a.price) || 0)
+          );
+
+        }
+
+
+        return sum;
+
+      },
+      0
+    );
+
+
+  const monthAppointments =
+    appointments.filter(
+      a => {
+
+        const d =
+          new Date(
+            a.date +
+            "T00:00:00"
+          );
+
+
+        return (
+          d.getMonth() ===
+            month &&
+          d.getFullYear() ===
+            year
+        );
+
+      }
+    );
+
+
+  const monthRevenue =
+    monthAppointments.reduce(
+      (sum,a) =>
+        sum +
+        (Number(a.price) || 0),
+      0
+    );
+
+
+  document.getElementById(
+    "todayRevenue"
+  ).textContent =
+    formatMoney(
+      todayRevenue
+    );
+
+
+  document.getElementById(
+    "weekRevenue"
+  ).textContent =
+    formatMoney(
+      weekRevenue
+    );
+
+
+  document.getElementById(
+    "monthRevenue"
+  ).textContent =
+    formatMoney(
+      monthRevenue
+    );
+
+
+  document.getElementById(
+    "todayCount"
+  ).textContent =
+    todayAppointments.length;
+
+
+  document.getElementById(
+    "monthCount"
+  ).textContent =
+    monthAppointments.length;
+
+
+  const list =
+    document.getElementById(
+      "cashAppointments"
+    );
+
+
+  list.innerHTML = "";
+
+
+  if(
+    !todayAppointments.length
+  ){
+
+    list.innerHTML =
+      `<div class="empty">
+        Δεν υπάρχουν σημερινά ραντεβού.
+      </div>`;
+
+    return;
+
+  }
+
+
+  todayAppointments
+    .sort(
+      (a,b) =>
+        a.time.localeCompare(
+          b.time
+        )
+    )
+    .forEach(a => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "cashItem";
+
+
+      item.innerHTML = `
+
+        <div>
+
+          <div class="cashItemName">
+            ${escapeHTML(a.name)}
+          </div>
+
+          <div class="cashItemTime">
+            ${a.time} •
+            ${escapeHTML(a.phone)}
+          </div>
+
+        </div>
+
+        <div class="cashItemPrice">
+          ${formatMoney(a.price)}
+        </div>
+
+      `;
+
+
+      list.appendChild(
+        item
+      );
+
+    });
+
+}
+
+
+/* =========================
+   TABS / SETTINGS
+========================= */
+
+function hideAllViews(){
+
+  document.getElementById(
+    "calendarView"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "cashView"
+  ).classList.remove(
+    "show"
+  );
+
+
+  document.getElementById(
+    "settingsView"
+  ).classList.remove(
+    "show"
+  );
+
+}
+
+
+function showCalendar(){
+
+  hideAllViews();
+
+
+  document.getElementById(
+    "calendarView"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "calendarTab"
+  ).classList.add(
+    "active"
+  );
+
+
+  document.getElementById(
+    "cashTab"
+  ).classList.remove(
+    "active"
+  );
+
+}
+
+
+function showCash(){
+
+  hideAllViews();
+
+
+  document.getElementById(
+    "cashView"
+  ).classList.add(
+    "show"
+  );
+
+
+  document.getElementById(
+    "calendarTab"
+  ).classList.remove(
+    "active"
+  );
+
+
+  document.getElementById(
+    "cashTab"
+  ).classList.add(
+    "active"
+  );
+
+
+  updateCash();
+
+}
+
+
+function showSettings(){
+
+  hideAllViews();
+
+
+  document.getElementById(
+    "settingsView"
+  ).classList.add(
+    "show"
+  );
+
+
+  document.getElementById(
+    "calendarTab"
+  ).classList.remove(
+    "active"
+  );
+
+
+  document.getElementById(
+    "cashTab"
+  ).classList.remove(
+    "active"
+  );
+
+
+  updateBackupInfo();
+
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function createBackup(){
+
+  const backup = {
+
+    app:
+      "JOHN BARBER",
+
+    version:
+      "1.0",
+
+    createdAt:
+      new Date().toISOString(),
+
+    appointments:
+      appointments
+
+  };
+
+
+  const json =
+    JSON.stringify(
+      backup,
+      null,
+      2
+    );
+
+
+  const blob =
+    new Blob(
+      [json],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  const now =
+    new Date();
+
+
+  const fileDate =
+    `${now.getFullYear()}-${String(
+      now.getMonth()+1
+    ).padStart(2,"0")}-${String(
+      now.getDate()
+    ).padStart(2,"0")}`;
+
+
+  link.href =
+    url;
+
+
+  link.download =
+    `JOHN-BARBER-BACKUP-${fileDate}.json`;
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+
+  document.body.removeChild(
+    link
+  );
+
+
+  URL.revokeObjectURL(
+    url
+  );
+
+
+  alert(
+    "✅ Το Backup δημιουργήθηκε.\n\nΑποθήκευσέ το στα Αρχεία ή στο iCloud Drive."
+  );
+
+}
+
+
+/* =========================
+   RESTORE
+========================= */
+
+function restoreBackup(event){
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file)
+    return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function(e){
+
+      try{
+
+        const data =
+          JSON.parse(
+            e.target.result
+          );
+
+
+        if(
+          !data ||
+          !Array.isArray(
+            data.appointments
+          )
+        ){
+
+          throw new Error(
+            "Μη έγκυρο backup"
+          );
+
+        }
+
+
+        const yes =
+          confirm(
+            "⚠️ Η επαναφορά θα αντικαταστήσει τα υπάρχοντα ραντεβού με αυτά του Backup.\n\nΘέλεις να συνεχίσεις;"
+          );
+
+
+        if(!yes){
+
+          event.target.value =
+            "";
+
+          return;
+
+        }
+
+
+        appointments =
+          data.appointments;
+
+
+        saveData();
+
+
+        renderCalendar();
+
+        renderHours();
+
+        updateCash();
+
+        updateBackupInfo();
+
+
+        alert(
+          `✅ Η επαναφορά ολοκληρώθηκε.\n\nΡαντεβού: ${appointments.length}`
+        );
+
+      }catch(error){
+
+        alert(
+          "❌ Το αρχείο Backup δεν είναι έγκυρο."
+        );
+
+      }
+
+
+      event.target.value =
+        "";
+
+    };
+
+
+  reader.readAsText(
+    file
+  );
+
+}
+
+
+/* =========================
+   BACKUP INFO
+========================= */
+
+function updateBackupInfo(){
+
+  const info =
+    document.getElementById(
+      "backupInfo"
+    );
+
+
+  if(!info)
+    return;
+
+
+  const count =
+    appointments.length;
+
+
+  let total =
+    appointments.reduce(
+      (sum,a) =>
+        sum +
+        (Number(a.price) || 0),
+      0
+    );
+
+
+  info.innerHTML = `
+    📊 Αποθηκευμένα ραντεβού:
+    <strong>${count}</strong>
+    <br>
+    💰 Συνολική αξία ραντεβού:
+    <strong>${formatMoney(total)}</strong>
+    <br>
+    💾 Τα δεδομένα αποθηκεύονται
+    τοπικά στη συσκευή.
+  `;
+
+}
+
+
+/* =========================
+   DELETE ALL
+========================= */
+
+function clearAllData(){
+
+  if(!appointments.length){
+
+    alert(
+      "Δεν υπάρχουν δεδομένα για διαγραφή."
+    );
+
+    return;
+
+  }
+
+
+  const firstConfirm =
+    confirm(
+      "⚠️ Θέλεις πραγματικά να διαγράψεις ΟΛΑ τα ραντεβού;"
+    );
+
+
+  if(!firstConfirm)
+    return;
+
+
+  const secondConfirm =
+    confirm(
+      "⚠️ ΤΕΛΕΥΤΑΙΑ ΕΠΙΒΕΒΑΙΩΣΗ\n\nΤα δεδομένα θα χαθούν από αυτή τη συσκευή αν δεν έχεις Backup.\n\nΣυνέχεια;"
+    );
+
+
+  if(!secondConfirm)
+    return;
+
+
+  appointments =
+    [];
+
+
+  saveData();
+
+
+  renderCalendar();
+
+  renderHours();
+
+  updateCash();
+
+  updateBackupInfo();
+
+
+  alert(
+    "Τα δεδομένα διαγράφηκαν."
+  );
+
+}
+
+
+/* =========================
+   COLORS
+========================= */
+
+document
+  .querySelectorAll(".color")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        selectedColor =
+          button.dataset.color;
+
+
+        document
+          .querySelectorAll(
+            ".color"
+          )
+          .forEach(c =>
+            c.classList.remove(
+              "selected"
+            )
+          );
+
+
+        button.classList.add(
+          "selected"
+        );
+
+      }
+    );
+
+  });
+
+
+/* =========================
+   SECURITY / HTML
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
+
+}
+
+
+function escapeAttribute(value){
+
+  return String(value)
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    );
+
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
+document
+  .getElementById("overlay")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(
+        e.target === this
+      ){
+
+        closeSheet();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   INIT
+========================= */
+
+goToday();
+
+updateCash();
+
+updateBackupInfo();
+
+</script>
+
+</body>
+</html>
